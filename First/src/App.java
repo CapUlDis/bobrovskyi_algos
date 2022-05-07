@@ -1,6 +1,6 @@
 public class App {
     public static void main(String[] args) {
-        System.out.println("Ass");
+        System.out.println("TEST");
         var linkedList = new LinkedList();
         var n1 = new Node(5);
         var n2 = new Node(7);
@@ -12,6 +12,8 @@ public class App {
         var n8 = new Node(1);
         var n9 = new Node(5);
 
+        var nNew = new Node(17);
+
 //        linkedList.addInTail(n1);
 //        linkedList.addInTail(n2);
 //        linkedList.addInTail(n3);
@@ -22,17 +24,19 @@ public class App {
 //        linkedList.addInTail(n8);
 //        linkedList.addInTail(n9);
 
-        System.out.println(linkedList.count());
-//        Node node = linkedList.head;
+        linkedList.insertAfter(null, nNew);
 
-//        while (node != null) {
-//            System.out.println(node.value);
-//            node = node.next;
-//        }
+//        System.out.println(linkedList.count());
+
+        Node node = linkedList.head;
+        while (node != null) {
+            System.out.println(node.value);
+            node = node.next;
+        }
 //
 //        System.out.println("delete===========");
-        var t = linkedList.remove(5);
-        System.out.println(linkedList.count());
+//        var t = linkedList.remove(5);
+//        System.out.println(linkedList.count());
 //        node = linkedList.head;
 //        while (node != null) {
 //            System.out.println(node.value);

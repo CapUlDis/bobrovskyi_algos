@@ -26,6 +26,7 @@ public class LinkedList {
             }
             node = node.next;
         }
+
         return null;
     }
 
@@ -38,6 +39,7 @@ public class LinkedList {
             }
             node = node.next;
         }
+
         return nodes;
     }
 
@@ -85,7 +87,6 @@ public class LinkedList {
 
             node = node.next;
         }
-
     }
 
     public void clear() {
@@ -106,10 +107,18 @@ public class LinkedList {
     }
 
     public void insertAfter(Node _nodeAfter, Node _nodeToInsert) {
-        // здесь будет ваш код вставки узла после заданного
+        if (_nodeAfter == null) {
+            if (this.head != null) {
+                _nodeToInsert.next = this.head;
+                this.head = _nodeToInsert;
+            } else {
+                this.addInTail(_nodeToInsert);
+            }
+            return;
+        }
 
-        // если _nodeAfter = null ,
-        // добавьте новый элемент первым в списке
+        _nodeToInsert.next = _nodeAfter.next;
+        _nodeAfter.next = _nodeToInsert;
     }
 
 }
