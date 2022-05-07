@@ -49,6 +49,9 @@ public class LinkedList {
         while (node != null) {
             if (node.value == _value) {
                 this.head = node.next;
+                if (this.head == null) {
+                    this.tail = null;
+                }
                 return true;
             }
 
@@ -72,6 +75,10 @@ public class LinkedList {
         while (node != null) {
             if (node.value == _value) {
                 this.head = node.next;
+                if (this.head == null) {
+                    this.tail = null;
+                    return;
+                }
                 node = node.next;
                 continue;
             }
