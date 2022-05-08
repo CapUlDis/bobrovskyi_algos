@@ -73,9 +73,10 @@ public class App {
         var sinElemList = new LinkedList();
         sinElemList.addInTail(n0);
 
-        testFindAll(getNormalList(), getEmptyList(), getSingleElementList());
-        testRemove();
-        testRemoveAll();
+//        testFindAll(getNormalList(), getEmptyList(), getSingleElementList());
+//        testRemove();
+//        testRemoveAll();
+        testInsertAfter();
     }
 
     public static void testFindAll(LinkedList _list, LinkedList _emptyList, LinkedList _sinElemList) {
@@ -233,8 +234,8 @@ public class App {
         var _sinElemList = getSingleElementList();
         _sinElemList.removeAll(17);
         if (
-                _sinElemList.head != null
-                || _sinElemList.tail != null
+            _sinElemList.head != null
+            || _sinElemList.tail != null
         ) {
             throw new AssertionError("WRONG REMOVE ALL RESULT");
         }
@@ -252,5 +253,115 @@ public class App {
         System.out.println("...PASSED\n");
 
         System.out.println("TEST REMOVE ALL METHOD FINISHED==========\n");
+    }
+
+    public static void testInsertAfter() {
+        System.out.println("TEST INSERT AFTER METHOD START==========\n");
+
+        var n1 = new Node(5);
+        var n2 = new Node(7);
+        var n3 = new Node(8);
+        var n4 = new Node(5);
+
+        var list = new LinkedList();
+        list.addInTail(n1);
+        list.addInTail(n2);
+        list.addInTail(n3);
+        list.addInTail(n4);
+
+        var nNew = new Node(13);
+
+        System.out.println("TEST #1 LIST INSERT AFTER MIDDLE");
+        list.insertAfter(n2, nNew);
+        var strResult = "";
+        var pointer = list.head;
+        while (pointer != null) {
+            strResult += pointer.value;
+            pointer = pointer.next;
+        }
+        if (
+            Integer.parseInt(strResult, 10) != 571385
+            || list.tail.value != 5
+            || list.head.value != 5
+        ) {
+            throw new AssertionError("WRONG INSERT AFTER RESULT: " + strResult);
+        }
+
+        System.out.println("...PASSED\n");
+
+        System.out.println("TEST #2 LIST INSERT AFTER NODE-AFTER = NULL");
+        list.insertAfter(null, new Node(9));
+        strResult = "";
+        pointer = list.head;
+        while (pointer != null) {
+            strResult += pointer.value;
+            pointer = pointer.next;
+        }
+        if (
+            Integer.parseInt(strResult, 10) != 9571385
+            || list.tail.value != 5
+            || list.head.value != 9
+        ) {
+            throw new AssertionError("WRONG INSERT AFTER RESULT: " + strResult);
+        }
+
+        System.out.println("...PASSED\n");
+
+        System.out.println("TEST #3 LIST INSERT AFTER LAST");
+        list.insertAfter(n4, new Node(6));
+        strResult = "";
+        pointer = list.head;
+        while (pointer != null) {
+            strResult += pointer.value;
+            pointer = pointer.next;
+        }
+        if (
+            Integer.parseInt(strResult, 10) != 95713856
+            || list.tail.value != 6
+            || list.head.value != 9
+        ) {
+            throw new AssertionError("WRONG INSERT AFTER RESULT: " + strResult);
+        }
+
+        System.out.println("...PASSED\n");
+
+        System.out.println("TEST #4 EMPTY LIST INSERT AFTER");
+        var emptyList = new LinkedList();
+        emptyList.insertAfter(null, new Node(1));
+        if (emptyList.tail.value != 1 || emptyList.head.value != 1) {
+            throw new AssertionError(
+                    "WRONG INSERT AFTER RESULT: head = " + emptyList.head.value + " tail = " + emptyList.tail.value
+            );
+        }
+
+        System.out.println("...PASSED\n");
+
+        System.out.println("TEST #4 SINGLE ELEMENT LIST INSERT AFTER");
+        var sinElemList = new LinkedList();
+        var n = new Node(4);
+        sinElemList.addInTail(n);
+        sinElemList.insertAfter(n, new Node(1));
+        if (sinElemList.tail.value != 1 || sinElemList.head.value != 4) {
+            throw new AssertionError(
+                    "WRONG INSERT AFTER RESULT: head = " + sinElemList.head.value + " tail = " + sinElemList.tail.value
+            );
+        }
+
+        System.out.println("...PASSED\n");
+
+        System.out.println("TEST #5 SINGLE ELEMENT LIST INSERT AFTER NULL");
+        sinElemList = new LinkedList();
+        n = new Node(4);
+        sinElemList.addInTail(n);
+        sinElemList.insertAfter(null, new Node(1));
+        if (sinElemList.tail.value != 4 || sinElemList.head.value != 1) {
+            throw new AssertionError(
+                    "WRONG INSERT AFTER RESULT: head = " + sinElemList.head.value + " tail = " + sinElemList.tail.value
+            );
+        }
+
+        System.out.println("...PASSED\n");
+
+        System.out.println("TEST INSERT AFTER METHOD FINISHED==========\n");
     }
 }

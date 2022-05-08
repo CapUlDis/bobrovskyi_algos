@@ -119,13 +119,16 @@ public class LinkedList {
                 _nodeToInsert.next = this.head;
                 this.head = _nodeToInsert;
             } else {
-                this.addInTail(_nodeToInsert);
+                addInTail(_nodeToInsert);
             }
             return;
         }
 
         _nodeToInsert.next = _nodeAfter.next;
         _nodeAfter.next = _nodeToInsert;
+        if (_nodeToInsert.next == null) {
+            this.tail = _nodeToInsert;
+        }
     }
 
 }
