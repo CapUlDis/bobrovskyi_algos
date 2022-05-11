@@ -22,12 +22,14 @@ public class LinkedList2 {
     }
 
     public Node find(int _value) {
-        Node node = this.head;
-        while (node != null) {
-            if (node.value == _value) {
-                return node;
+        Node pointer = this.head;
+
+        while (pointer != null) {
+            if (pointer.value == _value) {
+                return pointer;
             }
-            node = node.next;
+
+            pointer = pointer.next;
         }
 
         return null;
@@ -35,6 +37,15 @@ public class LinkedList2 {
 
     public ArrayList<Node> findAll(int _value) {
         ArrayList<Node> nodes = new ArrayList<Node>();
+        Node pointer = this.head;
+
+        while (pointer != null) {
+            if (pointer.value == _value) {
+                nodes.add(pointer);
+            }
+
+            pointer = pointer.next;
+        }
 
         return nodes;
     }
