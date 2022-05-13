@@ -7,6 +7,8 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 
 class LinkedList2Test {
@@ -64,10 +66,35 @@ class LinkedList2Test {
     void findAll() {
         ArrayList<Node> nodes = list.findAll(5);
         assertArrayEquals(new Node[]{n1, n4, n5, n7}, nodes.toArray(), "List: Wrong found nodes");
+
+        nodes = list.findAll(6);
+        assertEquals(0, nodes.size(), "List: Wrong found nodes");
+
+        nodes = sinElemList.findAll(33);
+        assertArrayEquals(new Node[]{n0}, nodes.toArray(), "Single element list: Wrong found nodes");
+
+        nodes = sinElemList.findAll(6);
+        assertEquals(0, nodes.size(), "Single element list: Wrong found nodes");
+
+        nodes = emptyList.findAll(7);
+        assertEquals(0, nodes.size(), "Empty list: Wrong found nodes");
     }
 
     @Test
     void remove() {
+        assertTrue(list.remove(5));
+        assertTrue(list.remove(5));
+        assertTrue(list.remove(5));
+        assertTrue(list.remove(5));
+        assertFalse(list.remove(5));
+
+        ArrayList<Node> nodes = new ArrayList<Node>();
+        Node pointer = list.head;
+        while (pointer != null) {
+            nodes.add(pointer);
+            pointer = pointer.next;
+        }
+        assertArrayEquals(new Node[]{n2, n3, n6}, nodes.toArray(), "List, remove existing nodes: Wrong removing operation");
     }
 
     @Test

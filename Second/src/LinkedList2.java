@@ -51,8 +51,36 @@ public class LinkedList2 {
     }
 
     public boolean remove(int _value) {
-        // здесь будет ваш код удаления одного узла по заданному значению
-        return true; // если узел был удалён
+        Node pointer = this.head;
+        while (pointer != null) {
+            if (pointer.value != _value) {
+                pointer = pointer.next;
+                continue;
+            }
+
+            Node prev = pointer.prev;
+            Node next = pointer.next;
+
+            if (prev != null) {
+                prev.next = next;
+            }
+
+            if (next != null) {
+                next.prev = prev;
+            }
+
+            if (prev == null) {
+                this.head = next;
+            }
+
+            if (next == null) {
+                this.tail = prev;
+            }
+
+            return true;
+        }
+
+        return false;
     }
 
     public void removeAll(int _value) {
