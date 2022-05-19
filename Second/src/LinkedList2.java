@@ -84,22 +84,70 @@ public class LinkedList2 {
     }
 
     public void removeAll(int _value) {
-        // здесь будет ваш код удаления всех узлов по заданному значению
+        Node pointer = this.head;
+        while (pointer != null) {
+            if (pointer.value != _value) {
+                pointer = pointer.next;
+                continue;
+            }
+
+            Node prev = pointer.prev;
+            Node next = pointer.next;
+
+            if (prev != null) {
+                prev.next = next;
+            }
+
+            if (next != null) {
+                next.prev = prev;
+            }
+
+            if (prev == null) {
+                this.head = next;
+            }
+
+            if (next == null) {
+                this.tail = prev;
+            }
+
+            pointer = pointer.next;
+        }
     }
 
     public void clear() {
-        // здесь будет ваш код очистки всего списка
+        this.head = null;
+        this.tail = null;
     }
 
     public int count() {
-        return 0; // здесь будет ваш код подсчёта количества элементов в списке
+        Node pointer = this.head;
+        int counter = 0;
+        while (pointer != null) {
+            counter += 1;
+            pointer = pointer.next;
+        }
+
+        return counter;
     }
 
     public void insertAfter(Node _nodeAfter, Node _nodeToInsert) {
-        // здесь будет ваш код вставки узла после заданного узла
+        if (_nodeAfter == tail) {
+            addInTail(_nodeToInsert);
+            return;
+        }
 
-        // если _nodeAfter = null
-        // добавьте новый элемент первым в списке
+        if (_nodeAfter == null) {
+            _nodeToInsert.next = this.head;
+            this.head.prev = _nodeToInsert;
+            this.head = _nodeToInsert;
+            _nodeToInsert.prev = null;
+            return;
+        }
+
+        _nodeToInsert.next = _nodeAfter.next;
+        _nodeAfter.next.prev =  _nodeToInsert;
+        _nodeToInsert.prev = _nodeAfter;
+        _nodeAfter.next = _nodeToInsert;
     }
 }
 
