@@ -22,13 +22,9 @@ public class DynArray<T> {
         }
 
         T[] newArray = (T[]) Array.newInstance(this.clazz, new_capacity);
-        int copyRange = capacity <= new_capacity ? capacity : new_capacity;
-        for (int i = 0; i < copyRange; i++) {
-            newArray[i] = array[i];
-            count = newArray[i] == null ? count : count + 1;
-        }
+        System.arraycopy(array, 0, newArray, 0, new_capacity);
+        count = count <= new_capacity ? count : new_capacity;
         capacity = new_capacity;
-        array = newArray;
     }
 
     public T getItem(int index) {
@@ -40,9 +36,13 @@ public class DynArray<T> {
     }
 
     public void append(T itm) {
-        int index = capacity;
-        makeArray(capacity * 2);
-        array[index] = itm;
+        if (count == capacity) {
+            capacity *= 2;
+            makeArray(capacity);
+        }
+
+        array[count] = itm;
+        count++;
     }
 
     public void insert(T itm, int index) {
@@ -50,29 +50,7 @@ public class DynArray<T> {
             throw new RuntimeException("Index out of range");
         }
 
-        int range = capacity;
-        if (array[capacity - 1] != null) {
-            makeArray(capacity * 2);
-            range++;
-        }
 
-        T buffer = null;
-        for (int i = 0; i < range; i++) {
-            if (i < index) {
-                array[i] = array[i];
-            }
-
-            if (i == index) {
-                buffer = array[i];
-                array[i] = itm;
-            }
-
-            if (i > index) {
-                T temp = array[i];
-                array[i] = buffer;
-                buffer = array[i];
-            }
-        }
     }
 
     public void remove(int index) {
